@@ -25,7 +25,7 @@ import AdminAnalytics from "./pages/AdminAnalytics"
 import AdminUsers from "./pages/AdminUsers"
 import SystemMonitor from "./pages/SystemMonitor"
 
-import "./styles/app.css"
+import "./styles/App.css";
 
 function Navbar() {
 
