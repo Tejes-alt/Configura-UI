@@ -1,26 +1,15 @@
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17
 
 WORKDIR /app
 
-# Copy Maven wrapper + pom first (better caching)
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
+COPY backend_project /app
 
-# Give execute permission
-RUN chmod +x mvnw
+RUN apt-get update && apt-get install -y maven
 
-# Download dependencies
-RUN ./mvnw dependency:go-offline
+WORKDIR /app
 
-# Copy source code
-COPY src src
+RUN mvn clean package -DskipTests
 
-# Build the project
-RUN ./mvnw clean package -DskipTests
-
-# Expose Spring Boot port
 EXPOSE 8080
 
-# Run the jar
 CMD ["java", "-jar", "target/configmanager-0.0.1-SNAPSHOT.jar"]
